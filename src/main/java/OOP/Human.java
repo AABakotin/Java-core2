@@ -7,7 +7,7 @@ public class Human implements Actions {
     private final int jumpHeight;
 
     public Human(String name) {
-        
+
         this.name = name;
         this.runDistance = (int) (Math.random()*30+5);
         this.jumpHeight = (int) (Math.random()*30+5);
