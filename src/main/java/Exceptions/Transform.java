@@ -5,6 +5,7 @@ public class Transform {
     public static int strTransform(String[][] strings)
             throws MySizeArrayException, MyArrayDataException {
 
+
         int sum = 0;
 
         int result = 0;
@@ -27,7 +28,7 @@ public class Transform {
     }
 }
 
-
+//
 
 
 
