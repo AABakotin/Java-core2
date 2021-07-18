@@ -24,6 +24,7 @@ public class MyHomeExceptions {
                 {"9", "0"},
                 {"3", "4", "5", "6"}};
 
+
         try {
             System.out.println("Сумма массива " + Transform.strTransform(normallyMassive));
         } catch (MyExceptions e){

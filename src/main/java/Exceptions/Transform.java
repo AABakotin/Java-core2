@@ -21,7 +21,6 @@ public class Transform {
                         throw new MyArrayDataException(j, i);
                     }
                 }
-
             }
         } else throw new MySizeArrayException();
         return sum;
