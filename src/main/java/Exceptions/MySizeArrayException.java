@@ -7,5 +7,7 @@ public class MySizeArrayException extends MyExceptions {
 
         super("Введенный массив не [4] х [4] ");
 
+
     }
 }
+//

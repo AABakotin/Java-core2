@@ -7,5 +7,7 @@ public class MyArrayDataException extends MyExceptions {
 
         super(String.format("Не возможно преобразовать в число ---> Y [%d], X [%d]", ++col , ++row));
 
+
     }
 }
+//
