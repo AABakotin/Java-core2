@@ -61,6 +61,18 @@ public class MultiTreading {
         thread1.start();
 
 
+        try {
+            thread0.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            thread1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Time MultiTreading " + (System.currentTimeMillis() - timeMillis));
+
     }
 
 }
