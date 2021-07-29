@@ -34,18 +34,17 @@ public class MultiTreading {
 
         Arrays.fill(arr, 1);
 
+        System.arraycopy(arr, 0, a1, 0, HALF_SIZE);
+        System.arraycopy(arr, HALF_SIZE, a2, 0, HALF_SIZE);
+
         long timeMillis = System.currentTimeMillis();
 
         Thread thread0 = new Thread(() -> {
-            System.arraycopy(arr, 0, a1, 0, HALF_SIZE);
             computation(a1, 0);
-            System.arraycopy(a1, 0, arr, 0, HALF_SIZE);
         });
 
         Thread thread1 = new Thread(() -> {
-            System.arraycopy(arr, HALF_SIZE, a2, 0, HALF_SIZE);
             computation(a2, HALF_SIZE);
-            System.arraycopy(a2, 0, arr, HALF_SIZE, HALF_SIZE);
         });
 
         thread0.start();
@@ -57,7 +56,11 @@ public class MultiTreading {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         System.out.println("Time MultiTreading " + (System.currentTimeMillis() - timeMillis));
+
+        System.arraycopy(a1, 0, arr, 0, HALF_SIZE);
+        System.arraycopy(a2, 0, arr, HALF_SIZE, HALF_SIZE);
 
         return arr;
     }
