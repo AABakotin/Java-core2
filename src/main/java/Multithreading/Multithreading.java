@@ -18,7 +18,7 @@ public class Multithreading {
     private static void firstExample() {
 
         float[] arr = new float[SIZE];
-        Arrays.fill(arr, 1f);
+        Arrays.fill(arr, 1);
 
         long a = System.currentTimeMillis();
         for (int i = 0; i < arr.length; i++) {
@@ -33,7 +33,7 @@ public class Multithreading {
         float[] a1 = new float[HALF];
         float[] a2 = new float[HALF];
 
-        Arrays.fill(arr, 1f);
+        Arrays.fill(arr, 1);
 
         long timeMillis = System.currentTimeMillis();
 
