@@ -5,75 +5,69 @@ import java.util.Arrays;
 public class MultiTreading {
 
     static final int SIZE = 10000000;
-    static final int HALF = SIZE / 2;
+    static final int HALF_SIZE = SIZE / 2;
 
 
     public static void main(String[] args) {
 
-        firstExample();
-        secondExample();
+        float[] array1 = firstExample();
+        float[] array2 = secondExample();
+
+        System.out.printf("Массив array1 и array2 равны: %b\n", Arrays.equals(array1, array2));
 
     }
 
-    private static void firstExample() {
-
-        float[] arr = new float[SIZE];
-        Arrays.fill(arr, 1.0F);
-
+    static float[] firstExample() {
+        float[] arr1 = new float[SIZE];
+        Arrays.fill(arr1, 1);
         long a = System.currentTimeMillis();
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-        }
+        computation(arr1, 0);
         System.out.println("Time single threading " + (System.currentTimeMillis() - a));
+        return arr1;
     }
 
-    private static void secondExample() {
+    static float[] secondExample() {
 
         float[] arr = new float[SIZE];
-        float[] a1 = new float[HALF];
-        float[] a2 = new float[HALF];
+        float[] a1 = new float[HALF_SIZE];
+        float[] a2 = new float[HALF_SIZE];
 
-        Arrays.fill(arr, 1.0F);
+        Arrays.fill(arr, 1);
 
         long timeMillis = System.currentTimeMillis();
 
         Thread thread0 = new Thread(() -> {
-            System.arraycopy(arr, 0, a1, 0, HALF);
-            for (int i = 0; i < a1.length; i++) {
-                a1[i] = (float) (a1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            }
-            System.arraycopy(a1, 0, arr, 0, HALF);
-            long timeTread0 = System.currentTimeMillis() - timeMillis;
-            System.out.println("Time multi " + Thread.currentThread().getName() + " " + timeTread0 + " ms");
+            System.arraycopy(arr, 0, a1, 0, HALF_SIZE);
+            computation(a1, 0);
+            System.arraycopy(a1, 0, arr, 0, HALF_SIZE);
         });
 
         Thread thread1 = new Thread(() -> {
-            System.arraycopy(arr, HALF, a2, 0, HALF);
-            for (int i = 0; i < a2.length; i++) {
-                a2[i] = (float) (a2[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
-            }
-            System.arraycopy(a2, 0, arr, HALF, HALF);
-            long timeTread1 = System.currentTimeMillis() - timeMillis;
-            System.out.println("Time multi " + Thread.currentThread().getName() + " " + timeTread1 + " ms");
+            System.arraycopy(arr, HALF_SIZE, a2, 0, HALF_SIZE);
+            computation(a2, HALF_SIZE);
+            System.arraycopy(a2, 0, arr, HALF_SIZE, HALF_SIZE);
         });
 
         thread0.start();
         thread1.start();
 
-
         try {
             thread0.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
             thread1.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.println("Time MultiTreading " + (System.currentTimeMillis() - timeMillis));
-        System.out.println("Два массива одинаковые а1 и а2 " + Arrays.equals (a1, a2));
 
+        return arr;
+    }
+
+    static void computation(float[] arr, int a) {
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = (float) (arr[i] * Math.sin(0.2f + (i + a) / 5) * Math.cos(0.2f + (i + a) / 5) * Math.cos(0.4f + (i + a) / 2));
+
+        }
     }
 
 }
