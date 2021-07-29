@@ -40,21 +40,21 @@ public class MultiTreading {
         Thread thread0 = new Thread(() -> {
             System.arraycopy(arr, 0, a1, 0, HALF);
             for (int i = 0; i < a1.length; i++) {
-                arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+                a1[i] = (float) (a1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
             System.arraycopy(a1, 0, arr, 0, HALF);
             long timeTread0 = System.currentTimeMillis() - timeMillis;
-            System.out.println("Time multi " + Thread.currentThread().getName() + " " + timeTread0 +" ms");
+            System.out.println("Time multi " + Thread.currentThread().getName() + " " + timeTread0 + " ms");
         });
 
         Thread thread1 = new Thread(() -> {
             System.arraycopy(arr, HALF, a2, 0, HALF);
             for (int i = 0; i < a2.length; i++) {
-                arr[i] = (float) (arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+                a2[i] = (float) (a2[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
             System.arraycopy(a2, 0, arr, HALF, HALF);
             long timeTread1 = System.currentTimeMillis() - timeMillis;
-            System.out.println("Time multi " + Thread.currentThread().getName() + " " + timeTread1 +" ms");
+            System.out.println("Time multi " + Thread.currentThread().getName() + " " + timeTread1 + " ms");
         });
 
         thread0.start();
@@ -72,6 +72,7 @@ public class MultiTreading {
             e.printStackTrace();
         }
         System.out.println("Time MultiTreading " + (System.currentTimeMillis() - timeMillis));
+        System.out.println("Два массива одинаковые а1 и а2 " + Arrays.equals (a1, a2));
 
     }
 
