@@ -75,7 +75,6 @@ public class MultiTreading {
         System.arraycopy(a1, 0, arr, 0, HALF_SIZE);
         System.arraycopy(a2, 0, arr, HALF_SIZE, HALF_SIZE);
         return arr;
-
     }
 
 }

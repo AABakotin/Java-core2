@@ -4,10 +4,10 @@ public class MyThreading extends Thread {
 
 
     private float[] arr;
-    private float a;
+    private float index;
 
-    MyThreading(float[] arr, int a) {
-        this.a = a;
+    MyThreading(float[] arr, int index) {
+        this.index = index;
         this.arr = arr;
 
     }
@@ -23,8 +23,7 @@ public class MyThreading extends Thread {
 
     private void calculate() {
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = (float) (arr[i] * Math.sin(0.2f + (i + a) / 5) * Math.cos(0.2f + (i + a) / 5) * Math.cos(0.4f + (i + a) / 2));
-
+            arr[i] = (float) (arr[i] * Math.sin(0.2f + (i + index) / 5) * Math.cos(0.2f + (i + index) / 5) * Math.cos(0.4f + (i + index) / 2));
         }
     }
 }
