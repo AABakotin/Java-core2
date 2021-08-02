@@ -6,6 +6,7 @@ public class MultiTreading {
 
     static final int SIZE = 10000000;
     static final int HALF_SIZE = SIZE / 2;
+    static final int DEFAULT = 0;
 
 
     public static void main(String[] args) {
@@ -20,9 +21,21 @@ public class MultiTreading {
     static float[] firstExample() {
         float[] arr1 = new float[SIZE];
         Arrays.fill(arr1, 1);
+
+        MyThreading threadSingle = new MyThreading(arr1, DEFAULT);
+
         long a = System.currentTimeMillis();
-        computation(arr1, 0);
+
+        threadSingle.start();
+
+        try {
+            threadSingle.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Time single threading " + (System.currentTimeMillis() - a));
+        threadSingle.getArr();
         return arr1;
     }
 
@@ -39,13 +52,10 @@ public class MultiTreading {
 
         long timeMillis = System.currentTimeMillis();
 
-        Thread thread0 = new Thread(() -> {
-            computation(a1, 0);
-        });
 
-        Thread thread1 = new Thread(() -> {
-            computation(a2, HALF_SIZE);
-        });
+        MyThreading thread0 = new MyThreading(a1, DEFAULT);
+        MyThreading thread1 = new MyThreading(a2, HALF_SIZE);
+
 
         thread0.start();
         thread1.start();
@@ -59,18 +69,13 @@ public class MultiTreading {
 
         System.out.println("Time MultiTreading " + (System.currentTimeMillis() - timeMillis));
 
+        a1 = thread0.getArr();
+        a2 = thread1.getArr();
+
         System.arraycopy(a1, 0, arr, 0, HALF_SIZE);
         System.arraycopy(a2, 0, arr, HALF_SIZE, HALF_SIZE);
-
         return arr;
-    }
 
-    static void computation(float[] arr, int a) {
-
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = (float) (arr[i] * Math.sin(0.2f + (i + a) / 5) * Math.cos(0.2f + (i + a) / 5) * Math.cos(0.4f + (i + a) / 2));
-
-        }
     }
 
 }
